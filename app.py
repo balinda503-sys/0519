@@ -85,7 +85,5 @@ history_df = pd.DataFrame({
 st.dataframe(
     history_df,
     use_container_width=True,
-    hide_index=True
-)
-```
+    hide_index=True)
 
