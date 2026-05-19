@@ -4,9 +4,6 @@ with st.sidebar:
   st.write("### 行事曆群組")
   st.radio("選擇群組",["業務","行政"])
 
-```python id="calendar_settings_demo"
-import pandas as pd
-import streamlit as st
 
 # =========================
 # 頁面設定
