@@ -5,134 +5,66 @@ with st.sidebar:
   st.radio("選擇群組",["業務","行政"])
 
 
-```python
-import pandas as pd
-import streamlit as st
-
-# =========================
 # 頁面設定
-# =========================
 st.set_page_config(
-    page_title="階段實作練習四",
+    page_title="行事曆管理",
     page_icon="📅",
     layout="wide"
 )
 
 # =========================
-# 標題區
+# 側邊欄
 # =========================
-st.title("階段實作練習四")
+with st.sidebar:
+    st.title("📌 功能選單")
 
-st.badge("練習四")
+    st.markdown("### 使用者資訊")
+    st.write("歡迎回來，使用者！")
 
-st.header("進階備忘錄與自動化通知設定")
-
-st.markdown("""
-建立參數設定區：
-
-- 左邊：藥丸標籤（pills）+ 多行備忘錄（text_area）
-- 右邊：滑動開關（toggle），開啟時顯示數字計數器（number_input）
-- 最下方：st.dataframe 展示模擬歷史設定報表
-""")
-
-st.divider()
+    st.markdown("### 快速功能")
+    st.button("➕ 新增行程")
+    st.button("📂 查看封存")
 
 # =========================
-# 參數設定區
+# 主畫面
 # =========================
-left_col, right_col = st.columns(2)
+left_col, right_col = st.columns([1, 3])
 
 # -------------------------
-# 左邊欄位
+# 左欄：新增行程提示
 # -------------------------
 with left_col:
+    st.subheader("📝 新增行程")
 
-    st.subheader("🏷️ 行程標籤")
-
-    # 如果你的 streamlit 版本太舊
-    # 可改成 st.multiselect()
-    tags = st.pills(
-        "選擇分類",
-        ["工作", "會議", "學習", "旅遊", "私人"],
-        selection_mode="multi"
-    )
-
-    st.write("目前選擇：", tags)
-
-    st.subheader("📝 備忘錄")
-
-    memo = st.text_area(
-        "請輸入備忘內容",
-        placeholder="例如：記得準備簡報、確認會議時間...",
-        height=200
+    st.info(
+        "請點選側邊欄的「新增行程」按鈕，"
+        "即可建立新的行程內容。"
     )
 
 # -------------------------
-# 右邊欄位
+# 右欄：行程內容
 # -------------------------
 with right_col:
+    with st.container(border=True):
 
-    st.subheader("🔔 通知設定")
+        st.subheader("📅 行程管理")
 
-    enable_notice = st.toggle("啟用自動通知")
+        tab1, tab2 = st.tabs([
+            "本月行程",
+            "已封存行程"
+        ])
 
-    if enable_notice:
+        # 本月行程
+        with tab1:
+            st.write("### 本月行程列表")
 
-        notice_count = st.number_input(
-            "通知次數",
-            min_value=1,
-            max_value=10,
-            value=3,
-            step=1
-        )
+            st.success("05/20 - 團隊會議")
+            st.success("05/24 - 客戶簡報")
+            st.success("05/28 - 專案驗收")
 
-        st.success(f"目前通知次數：{notice_count}")
+        # 已封存行程
+        with tab2:
+            st.write("### 已封存行程")
 
-    else:
-        st.info("目前未啟用通知功能")
-
-# =========================
-# 模擬歷史設定報表
-# =========================
-st.divider()
-
-st.subheader("📊 歷史設定報表")
-
-history_df = pd.DataFrame({
-    "日期": [
-        "2026-05-01",
-        "2026-05-05",
-        "2026-05-10",
-        "2026-05-15"
-    ],
-    "分類": [
-        "工作",
-        "私人",
-        "會議",
-        "學習"
-    ],
-    "備忘錄": [
-        "完成專案排程",
-        "安排家庭聚餐",
-        "客戶需求確認",
-        "Python 課程複習"
-    ],
-    "通知次數": [
-        2,
-        1,
-        3,
-        5
-    ]
-})
-
-st.dataframe(
-    history_df,
-    use_container_width=True,
-    hide_index=True
-)
-```
-
-    use_container_width=True,
-    hide_index=True
-)
-
+            st.warning("04/10 - 春季活動")
+            st.warning("04/18 - 系統維護")
