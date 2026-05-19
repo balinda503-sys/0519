@@ -58,7 +58,7 @@ with left_col:
     # 顏色選擇
     event_color = st.selectbox(
         "選擇標籤顏色",
-        ["🔴 紅色", "🟢 綠色", "🔵 藍色", "🟡 黃色", "🟣 紫色"]
+        ["red", "green", "blue"]
     )
 
     # 提醒時間
