@@ -4,11 +4,6 @@ with st.sidebar:
   st.write("### 行事曆群組")
   st.radio("選擇群組",["業務","行政"])
 
-
-```python id="calendar_reminder_app"
-import streamlit as st
-from datetime import date
-
 # =========================
 # 頁面設定
 # =========================
@@ -58,7 +53,7 @@ with left_col:
     # 顏色選擇
     event_color = st.selectbox(
         "選擇標籤顏色",
-        ["red", "green", "blue"]
+        ["🔴 紅色", "🟢 綠色", "🔵 藍色", "🟡 黃色", "🟣 紫色"]
     )
 
     # 提醒時間
@@ -152,5 +147,4 @@ with right_col:
 
             st.warning("04/10 - 春季活動")
             st.warning("04/18 - 系統維護")
-```
 
