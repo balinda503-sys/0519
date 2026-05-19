@@ -4,67 +4,91 @@ with st.sidebar:
   st.write("### 行事曆群組")
   st.radio("選擇群組",["業務","行政"])
 
+```python id="calendar_settings_demo"
+import pandas as pd
+import streamlit as st
+
+# =========================
 # 頁面設定
+# =========================
 st.set_page_config(
-    page_title="行事曆管理",
+    page_title="行事曆設定頁",
     page_icon="📅",
     layout="wide"
 )
 
-# =========================
-# 側邊欄
-# =========================
-with st.sidebar:
-    st.title("📌 功能選單")
-
-    st.markdown("### 使用者資訊")
-    st.write("歡迎回來，使用者！")
-
-    st.markdown("### 快速功能")
-    st.button("➕ 新增行程")
-    st.button("📂 查看封存")
+st.title("📅 行事曆參數設定")
 
 # =========================
-# 主畫面
+# 參數設定區
 # =========================
-left_col, right_col = st.columns([1, 3])
+st.subheader("⚙️ 參數設定")
+
+left_col, right_col = st.columns(2)
 
 # -------------------------
-# 左欄：新增行程提示
+# 左邊區塊
 # -------------------------
 with left_col:
-    st.subheader("📝 新增行程")
 
-    st.info(
-        "請點選側邊欄的「新增行程」按鈕，"
-        "即可建立新的行程內容。"
+    st.markdown("### 🏷️ 行程分類")
+
+    category = st.pills(
+        "選擇標籤",
+        ["工作", "會議", "私人", "旅遊", "學習"],
+        selection_mode="multi"
+    )
+
+    st.markdown("### 📝 備忘錄")
+
+    memo = st.text_area(
+        "請輸入備忘內容",
+        placeholder="例如：記得準備會議簡報與文件...",
+        height=180
     )
 
 # -------------------------
-# 右欄：行程內容
+# 右邊區塊
 # -------------------------
 with right_col:
-    with st.container(border=True):
 
-        st.subheader("📅 行程管理")
-title = st.text_input("行程主旨",placeholder="請填寫會議名稱...")
+    st.markdown("### 🔧 進階設定")
 
-        tab1, tab2 = st.tabs([
-            "本月行程",
-            "已封存行程"
-        ])
+    enable_counter = st.toggle("啟用數量限制")
 
-        # 本月行程
-        with tab1:
-            st.write("### 本月行程列表")
+    if enable_counter:
+        limit_value = st.number_input(
+            "設定最大數量",
+            min_value=1,
+            max_value=100,
+            value=10,
+            step=1
+        )
 
-            st.success("05/20 - 團隊會議")
-            st.success("05/24 - 客戶簡報")
-            st.success("05/28 - 專案驗收")
+        st.success(f"目前限制數量：{limit_value}")
 
-        # 已封存行程
-        with tab2:
-            st.write("### 已封存行程")
+# =========================
+# 模擬歷史設定報表
+# =========================
+st.divider()
 
-            st.warning("04/10 - 春季活動")
-            st.warning("04/18 - 系統維護")
+st.subheader("📊 歷史設定報表")
+
+history_df = pd.DataFrame({
+    "日期": ["2026-05-01", "2026-05-05", "2026-05-10"],
+    "分類": ["工作", "私人", "會議"],
+    "備忘錄": [
+        "完成專案排程",
+        "安排家庭聚餐",
+        "客戶需求確認"
+    ],
+    "限制數量": [5, 10, 3]
+})
+
+st.dataframe(
+    history_df,
+    use_container_width=True,
+    hide_index=True
+)
+```
+
