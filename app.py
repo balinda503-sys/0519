@@ -44,12 +44,8 @@ with left_col:
         placeholder="請輸入行程名稱"
     )
 
-  import datetime
-today = st.date_input(
-  "選擇日期",
-  datetime.date.today()
-)
-    )
+import datetime
+  today = st.date_input("選擇日期", datetime.date.today)
 
     # 顏色選擇
     event_color = st.selectbox(
