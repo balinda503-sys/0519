@@ -47,6 +47,7 @@ with right_col:
     with st.container(border=True):
 
         st.subheader("📅 行程管理")
+title = st.text_input("行程主旨",placeholder="請填寫會議名稱...")
 
         tab1, tab2 = st.tabs([
             "本月行程",
